@@ -1,6 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
+class PublishedManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(status=self.model.Status.Published)
+
+
+
 class Category(models.Model):
     name=models.CharField(max_length=150,null=False,blank=False,unique=True,verbose_name="Kategoriya nomi")
     created_at=models.DateTimeField(auto_now_add=True)
@@ -28,6 +35,9 @@ class New(models.Model):
     published_at=models.DateTimeField(auto_now=True)
     updated_at=models.DateTimeField(auto_now=True)
     status=models.CharField(max_length=2,choices=Status.choices,default=Status.Draft)
+
+    objects=models.Manager()  #default
+    published=PublishedManager() # custom
 
     def __str__(self):
         return self.title
