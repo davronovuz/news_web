@@ -15,8 +15,8 @@
                             <img src="{{ latest_new.image.url }}" />
                             <div class="tn-content">
                                 <div class="tn-content-inner">
-                                    <a class="tn-date" href=""><i class="far fa-clock"></i>{{ latest_new.published_at }}</a>
-                                    <a class="tn-title" href="">{{ latest_new.title }}</a>
+                                    <a class="tn-date" href="{% url 'new_detail' latest_new.slug %}"><i class="far fa-clock"></i>{{ latest_new.published_at }}</a>
+                                    <a class="tn-title" href="{% url 'new_detail' latest_new.slug %}">{{ latest_new.title }}</a>
                                 </div>
                             </div>
                         </div>
@@ -30,8 +30,8 @@
                                                  <img src="{{ new.image.url }}" />
                                                 <div class="tn-content">
                                                     <div class="tn-content-inner">
-                                                        <a class="tn-date" href=""><i class="far fa-clock"></i>{{ new.published_at }}</a>
-                                                        <a class="tn-title" href="">{{ new.title }}</a>
+                                                        <a class="tn-date" href="{% url 'new_detail' new.slug %}"><i class="far fa-clock"></i>{{ new.published_at }}</a>
+                                                        <a class="tn-title" href="{% url 'new_detail' new.slug %}">{{ new.title }}</a>
                                                     </div>
                                                 </div>
                                             </div>

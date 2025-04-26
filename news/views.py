@@ -19,3 +19,21 @@ def home_page(request):
 
 def contact_page(request):
     return render(request,"contact.html")
+
+
+def detail_page(request,slug):
+    new=New.published.filter(slug=slug).first()
+    context={
+        "new":new
+    }
+    return render(request,"single-page.html",context)
+
+
+
+# Mahalliy xabar
+def mahalliy_news_page(request):
+    mahalliy_news=New.published.filter(category__name="Mahalliy")
+    context={
+        "news":mahalliy_news
+    }
+    return render(request,"mahalliy.html",context)
