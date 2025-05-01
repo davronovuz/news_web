@@ -30,6 +30,7 @@ class New(models.Model):
     category=models.ForeignKey(Category,on_delete=models.CASCADE)
     slug=models.SlugField(max_length=200)
     body=models.TextField()
+    count=models.IntegerField(default=0)
     image=models.ImageField(upload_to="news/",null=True,blank=True)
     created_at=models.DateTimeField(auto_now_add=True)
     published_at=models.DateTimeField(auto_now=True)
@@ -62,6 +63,19 @@ class Comment(models.Model):
 
     class Meta:
         ordering=["-created"]
+
+
+
+class Contact(models.Model):
+    name=models.CharField(max_length=200,null=False,blank=False,verbose_name="Ism")
+    email=models.EmailField(max_length=200,null=False,blank=False,verbose_name="Email")
+    subject=models.CharField(max_length=200,null=False,blank=False,verbose_name="Mavzu")
+    message=models.TextField(null=False,blank=False,verbose_name="Xabar")
+    created_at=models.DateTimeField(auto_now_add=True)
+    updated_at=models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
 
 
 

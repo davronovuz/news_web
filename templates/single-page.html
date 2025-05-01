@@ -29,6 +29,7 @@
                         <div class="sn-content">
                             <a class="sn-title" href="">{{ new.title }}</a>
                             <a class="sn-date" href=""><i class="far fa-clock"></i>{{ new.published_at }}</a>
+                            <a class="sn-date" href=""><i class="bi bi-eye"></i>{{ new.count }}</a>
                             <p>
                                 {{ new.body }}
                             </p>
@@ -98,5 +99,50 @@
             </div>
         </div>
         <!-- Single News End-->
+
+        <!--All comments Start-->
+        <div class="all-comments">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="comments-list">
+                            <h2>Barcha Fikrlar</h2>
+                            {% for comment in all_comments %}
+                            <div class="comment">
+                                <div class="comment-text">
+                                    <h3>{{ comment.user }} - {{ comment.created }}</h3>
+                                    <p>{{ comment.comment }}</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--All comments End-->
+
+        <!--Comments Start-->
+        <div class="comments">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="comment-form">
+                            <h2>Leave a comment</h2>
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="row">
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="5" placeholder="Message" name="message"></textarea>
+                                </div>
+                                <div><button class="btn" type="submit">Send Message</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Comments End-->
 
 {% endblock %}

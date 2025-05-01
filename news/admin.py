@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import New,Category,Comment
+from .models import New,Contact,Comment
 
 
 @admin.register(New)
@@ -11,4 +11,5 @@ class NewsAdmin(admin.ModelAdmin):
 
 
 
-admin.site.register(Category)
+admin.site.register(Contact)
+admin.site.register(Comment)

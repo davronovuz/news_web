@@ -1,5 +1,8 @@
-from django.shortcuts import render
-from .models import New,Category,Comment
+from django.shortcuts import render, redirect
+from .models import New, Category, Comment, Contact
+from .forms import CommentForm
+
+
 
 def home_page(request):
     latest_new=New.published.order_by('-id').first()
@@ -18,13 +21,36 @@ def home_page(request):
 
 
 def contact_page(request):
+    if request.method=="POST":
+        name=request.POST.get("name")
+        email=request.POST.get("email")
+        subject=request.POST.get("subject")
+        message=request.POST.get("message")
+        contact=Contact(name=name,email=email,subject=subject,message=message)
+        contact.save()
+        return redirect("kontakt")
     return render(request,"contact.html")
 
 
 def detail_page(request,slug):
     new=New.published.filter(slug=slug).first()
+    all_comments=Comment.objects.filter(new=new,status=True).order_by("-created")
+    new.count+=1
+    new.save()
+
+    if request.method=="POST":
+        if not request.user.is_authenticated:
+            return redirect("login")
+        else:
+            message=request.POST.get("message")
+            if message:
+                comment=Comment(user=request.user,comment=message,new=new)
+                comment.save()
+                return redirect("new_detail",slug=slug)
     context={
-        "new":new
+        "new":new,
+        "all_comments":all_comments
+
     }
     return render(request,"single-page.html",context)
 
